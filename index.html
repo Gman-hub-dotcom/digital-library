@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Digital Library — Knowledge Is Free</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0a0803;color:#f5f0e8;font-family:Georgia,serif;min-height:100vh}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#2a2010;border-radius:2px}
+a{text-decoration:none}
+img{display:block}
+button{cursor:pointer;font-family:Georgia,serif}
+input,select,textarea{font-family:Georgia,serif}
+input::placeholder{color:rgba(245,240,232,.25)}
+
+/* NAV */
+#nav{position:sticky;top:0;z-index:1000;background:rgba(10,8,3,.97);border-bottom:1px solid rgba(217,119,6,.18);backdrop-filter:blur(18px)}
+#nav-inner{max-width:1280px;margin:0 auto;padding:0 20px;height:66px;display:flex;align-items:center;justify-content:space-between}
+#logo-btn{background:none;border:none;display:flex;align-items:center;gap:11px}
+#logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#b45309,#d97706);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 4px 14px rgba(217,119,6,.4);flex-shrink:0}
+#logo-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fbbf24;line-height:1}
+#logo-tag{font-size:9px;color:rgba(251,191,36,.38);letter-spacing:3px;text-transform:uppercase;margin-top:1px}
+#desk-nav{display:flex;align-items:center;gap:2px}
+.nav-btn{background:none;border:1px solid transparent;color:rgba(255,255,255,.55);padding:8px 16px;border-radius:7px;font-size:14px;transition:all .15s}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-btn.active{background:rgba(217,119,6,.12);border-color:rgba(217,119,6,.3);color:#fbbf24;font-weight:600}
+#join-nav-btn{margin-left:10px;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;padding:9px 22px;border-radius:8px;font-size:14px;font-weight:700;box-shadow:0 2px 12px rgba(217,119,6,.4)}
+#mob-ham{display:none;background:none;border:none;color:#fbbf24;font-size:24px}
+#mob-menu{display:none;background:#0a0803;border-top:1px solid rgba(217,119,6,.1);padding:14px 20px 20px}
+.mob-nav-btn{display:block;width:100%;text-align:left;padding:13px 0;background:none;border:none;font-size:16px;color:rgba(255,255,255,.55);border-bottom:1px solid rgba(255,255,255,.05)}
+.mob-nav-btn.active{color:#fbbf24;font-weight:600}
+#mob-join-btn{margin-top:14px;width:100%;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:700}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+/* HERO */
+#hero{position:relative;min-height:680px;display:flex;align-items:center;overflow:hidden}
+#hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80');background-size:cover;background-position:center 30%;filter:brightness(.2) saturate(.6)}
+#hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(10,8,3,.97) 0%,rgba(10,8,3,.7) 55%,rgba(10,8,3,.2) 100%)}
+#hero-fade{position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(to top,#0a0803,transparent)}
+#hero-content{position:relative;max-width:1280px;margin:0 auto;padding:80px 28px;width:100%}
+#hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.28);color:#fbbf24;padding:7px 18px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;display:inline-block}
+#hero-title{font-family:'Playfair Display',serif;font-size:clamp(40px,6.5vw,78px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:24px;max-width:620px}
+#hero-title em{color:#fbbf24;font-style:italic}
+#hero-sub{font-size:18px;color:rgba(255,255,255,.6);line-height:1.9;margin-bottom:44px;max-width:500px}
+#hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;padding:15px 36px;border-radius:9px;font-size:16px;font-weight:700;box-shadow:0 4px 24px rgba(217,119,6,.4);transition:all .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(217,119,6,.5)}
+.btn-ghost{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.22);padding:15px 36px;border-radius:9px;font-size:16px;transition:background .2s}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.btn-green{background:#25D366;color:#fff;border:none;padding:15px 32px;border-radius:9px;font-size:16px;font-weight:700;box-shadow:0 4px 20px rgba(37,211,102,.4)}
+
+/* STATS */
+#stats{background:#060503;border-top:1px solid rgba(217,119,6,.12)}
+#stats-inner{max-width:1000px;margin:0 auto;padding:22px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));text-align:center;gap:8px}
+.stat-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fbbf24}
+.stat-lbl{font-size:9px;color:rgba(251,191,36,.35);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* SECTIONS */
+.section{padding:60px 20px}
+.section-inner{max-width:1280px;margin:0 auto}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+.label-gold{color:#d97706}
+.label-green{color:#22c55e}
+.section-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#fff}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap;gap:12px}
+.btn-outline-gold{background:rgba(217,119,6,.1);color:#fbbf24;border:1px solid rgba(217,119,6,.22);padding:10px 22px;border-radius:7px;font-size:14px;font-weight:600}
+.btn-outline-green{background:rgba(34,197,94,.08);color:#4ade80;border:1px solid rgba(34,197,94,.22);padding:10px 22px;border-radius:7px;font-size:14px;font-weight:600}
+
+/* BOOK GRID */
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px}
+.book-card{background:#1a1612;border:1px solid rgba(255,255,255,.06);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;position:relative}
+.book-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.55)}
+.book-card.gold-hover:hover{border-color:rgba(217,119,6,.4)}
+.book-card.green-border{border-color:rgba(34,197,94,.1)}
+.book-card.green-border:hover{border-color:rgba(34,197,94,.38)}
+.book-badge{position:absolute;top:8px;left:8px;z-index:2;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:1px}
+.badge-green{background:#16a34a}
+.badge-gold{background:#d97706}
+.book-cover-wrap{overflow:hidden;background:#1e1612}
+.book-cover-img{width:100%;height:195px;object-fit:cover;display:block}
+.book-cover-fallback{height:195px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px;text-align:center}
+.book-info{padding:11px 12px 14px}
+.book-title{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#f5f0e8;line-height:1.3;margin-bottom:2px}
+.book-author{font-size:11px;color:rgba(255,255,255,.38);margin-bottom:6px}
+.book-action-gold{font-size:11px;color:#d97706;font-weight:600}
+.book-action-green{font-size:11px;color:#4ade80;font-weight:600}
+
+/* GENRE GRID */
+.genre-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.genre-card{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;height:150px;transition:all .25px}
+.genre-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.65)}
+.genre-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.3) saturate(.7)}
+.genre-overlay{position:absolute;inset:0}
+.genre-content{position:absolute;inset:0;padding:16px 14px;display:flex;flex-direction:column;justify-content:space-between}
+.genre-icon{font-size:24px}
+.genre-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:4px}
+.genre-sub{font-size:10px;color:rgba(255,255,255,.48);line-height:1.5}
+.genre-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:1px}
+
+/* HOW IT WORKS */
+#how{background:#0f0e0a;padding:60px 20px;border-top:1px solid rgba(217,119,6,.06)}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.step-card{background:rgba(255,255,255,.025);border-radius:12px;padding:26px 22px;border:1px solid rgba(255,255,255,.05)}
+.step-icon-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.step-icon{width:42px;height:42px;background:rgba(217,119,6,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.step-badge{color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:1px}
+.step-num{font-size:11px;color:#d97706;font-weight:700;margin-bottom:8px}
+.step-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:10px;color:#fff;line-height:1.3}
+.step-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.85}
+
+/* CTA GREEN */
+#cta-green{background:linear-gradient(135deg,#012a12,#065f46);padding:60px 20px;text-align:center}
+#cta-green h2{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:#fff;margin-bottom:14px}
+#cta-green p{color:rgba(255,255,255,.65);font-size:16px;line-height:1.9;margin-bottom:36px}
+#cta-green em{color:#6ee7b7}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* DONATE */
+#donate-bar{background:#0a0803;padding:34px 20px;text-align:center;border-top:1px solid rgba(217,119,6,.08)}
+#donate-bar p{color:rgba(255,255,255,.25);font-size:13px;line-height:1.9;margin-bottom:14px}
+.mpesa-box{background:rgba(217,119,6,.07);border:1px solid rgba(217,119,6,.18);border-radius:9px;padding:14px 28px;display:inline-block}
+.mpesa-label{font-size:9px;color:#d97706;letter-spacing:2px;margin-bottom:4px;text-transform:uppercase}
+.mpesa-num{font-family:'Playfair Display',serif;font-size:28px;color:#fbbf24;font-weight:700}
+
+/* LIBRARY PAGE */
+#lib-search-wrap{position:relative;max-width:540px;margin-bottom:40px}
+#lib-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+#lib-search{width:100%;padding:13px 44px 13px 44px;border:1px solid rgba(217,119,6,.22);border-radius:9px;font-size:15px;outline:none;background:rgba(255,255,255,.04);color:#f5f0e8;box-sizing:border-box;transition:border-color .2s}
+#lib-search:focus{border-color:rgba(217,119,6,.6)}
+#lib-search-results{margin-bottom:48px}
+
+/* GENRE DETAIL */
+#genre-detail{display:none}
+#genre-back{background:none;border:none;color:rgba(255,255,255,.4);font-size:14px;margin-bottom:28px;display:flex;align-items:center;gap:8px}
+#genre-hero{position:relative;border-radius:14px;overflow:hidden;height:200px;margin-bottom:38px}
+#genre-hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.28)}
+#genre-hero-overlay{position:absolute;inset:0}
+#genre-hero-content{position:absolute;inset:0;padding:30px 34px;display:flex;flex-direction:column;justify-content:flex-end}
+#genre-hero-icon{font-size:38px;margin-bottom:8px}
+#genre-hero-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:6px}
+#genre-hero-sub{color:rgba(255,255,255,.5);font-size:13px}
+#genre-free-books{margin-bottom:40px}
+#genre-request-cta{background:rgba(255,255,255,.025);border:1px solid rgba(217,119,6,.14);border-radius:12px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+/* REQUEST PAGE */
+#req-tabs{display:flex;margin-bottom:34px;background:rgba(255,255,255,.03);border-radius:10px;padding:4px;width:fit-content;border:1px solid rgba(255,255,255,.05)}
+.req-tab{padding:10px 22px;border-radius:7px;border:none;font-size:14px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.4);background:none}
+.req-tab.active{background:linear-gradient(135deg,#b45309,#d97706);color:#fff;font-weight:700}
+#free-tab-content,#request-tab-content{display:none}
+#free-tab-content.active,#request-tab-content.active{display:block}
+#free-info-bar{display:flex;align-items:flex-start;gap:10px;margin-bottom:26px;padding:14px 18px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:9px;color:#4ade80;font-size:14px;line-height:1.75}
+#req-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+#req-form-card{background:#1a1612;border:1px solid rgba(217,119,6,.18);border-radius:14px;padding:34px}
+#req-form-title{font-family:'Playfair Display',serif;font-size:24px;margin-bottom:8px;color:#fff}
+#req-form-sub{color:rgba(255,255,255,.32);font-size:14px;line-height:1.75;margin-bottom:28px}
+.form-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:7px}
+.form-input{width:100%;padding:12px 14px;border:1px solid rgba(217,119,6,.18);border-radius:8px;font-size:15px;outline:none;background:rgba(255,255,255,.04);color:#f5f0e8;box-sizing:border-box;transition:border-color .2s;margin-bottom:14px}
+.form-input:focus{border-color:rgba(217,119,6,.55)}
+#req-submit{width:100%;padding:14px;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;transition:opacity .2s}
+#req-submit:disabled{opacity:.3;cursor:not-allowed}
+#req-success{display:none;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.22);border-radius:10px;padding:28px;text-align:center}
+#req-success h3{font-family:'Playfair Display',serif;font-size:20px;color:#4ade80;margin-bottom:10px}
+#req-success p{color:rgba(255,255,255,.45);font-size:14px;line-height:1.8}
+#req-another{margin-top:18px;background:none;border:1px solid rgba(255,255,255,.12);padding:9px 22px;border-radius:7px;font-size:13px;color:rgba(255,255,255,.4)}
+#req-tip{display:flex;gap:10px;margin-top:14px;padding:12px 14px;background:rgba(34,197,94,.04);border-radius:8px;border:1px solid rgba(34,197,94,.12);font-size:12px;color:rgba(255,255,255,.35);line-height:1.75}
+
+/* CHAT */
+#chat-card{background:#0f172a;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:520px;border:1px solid rgba(217,119,6,.1)}
+#chat-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:10px}
+.chat-dot{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e}
+#chat-title{font-family:'Playfair Display',serif;color:#fbbf24;font-size:16px;font-weight:600}
+#chat-live{margin-left:auto;font-size:9px;color:rgba(255,255,255,.18);letter-spacing:3px}
+#chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;min-height:350px}
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.user{justify-content:flex-end}
+.msg-avatar{width:28px;height:28px;background:#d97706;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.msg-bubble{max-width:80%;padding:11px 15px;font-size:14px;line-height:1.8}
+.msg-bubble.bot{background:rgba(255,255,255,.06);color:rgba(255,255,255,.82);border-radius:4px 14px 14px 14px}
+.msg-bubble.user{background:#d97706;color:#fff;border-radius:14px 4px 14px 14px}
+#chat-typing{display:none;gap:5px;padding-left:36px;align-items:center}
+#chat-typing span{width:7px;height:7px;border-radius:50%;background:#d97706}
+#chat-footer{padding:12px 14px;border-top:1px solid rgba(255,255,255,.04);display:flex;gap:8px}
+#chat-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 13px;color:#f9fafb;font-size:14px;outline:none}
+#chat-send{background:#d97706;border:none;color:#fff;padding:10px 16px;border-radius:8px;font-size:16px}
+
+/* JOIN CTA BANNER */
+#join-banner{margin-top:24px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.18);border-radius:10px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+#join-banner h3{font-family:'Playfair Display',serif;font-size:17px;color:#fff;margin-bottom:4px}
+#join-banner p{color:rgba(255,255,255,.38);font-size:13px}
+#join-banner em{color:#6ee7b7}
+
+/* SOURCES */
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:44px}
+.source-card{background:#1a1612;border:1px solid rgba(217,119,6,.1);border-radius:12px;padding:26px;display:block;color:inherit;transition:all .2s}
+.source-card:hover{border-color:rgba(217,119,6,.38);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.source-icon{font-size:28px;margin-bottom:12px}
+.source-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px;color:#f5f0e8}
+.source-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.75;margin-bottom:14px}
+.source-link{font-size:13px;color:#d97706;font-weight:600}
+
+/* COMMUNITY */
+#main-community-card{background:linear-gradient(135deg,#012a12,#065f46);border-radius:14px;padding:34px 38px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;border:1px solid rgba(34,197,94,.2)}
+.comm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.comm-card{position:relative;border-radius:10px;overflow:hidden;height:88px}
+.comm-card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.22)}
+.comm-card-content{position:absolute;inset:0;padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+.comm-card-left{display:flex;align-items:center;gap:10px}
+
+/* MODAL */
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px)}
+#modal-overlay.open{display:flex}
+#modal-box{background:#0f172a;border-radius:16px;padding:40px;max-width:440px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.7);border:1px solid rgba(217,119,6,.12)}
+#modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.07);border:none;border-radius:50%;width:32px;height:32px;font-size:15px;color:rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center}
+#modal-label{font-size:11px;font-weight:700;color:#d97706;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+#modal-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:6px;color:#fff}
+#modal-sub{color:rgba(255,255,255,.32);font-size:14px;margin-bottom:26px}
+#modal-submit{width:100%;padding:14px;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700}
+#modal-submit:disabled{opacity:.25;cursor:not-allowed}
+#modal-success{display:none;text-align:center}
+#modal-success h2{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:10px;color:#fff}
+#modal-success p{color:rgba(255,255,255,.38);font-size:14px;line-height:1.85;margin-bottom:26px}
+.modal-wa-btn{display:block;background:#25D366;color:#fff;text-align:center;padding:13px;border-radius:9px;font-size:15px;font-weight:700;margin-bottom:12px}
+#modal-enter{width:100%;background:rgba(217,119,6,.1);color:#fbbf24;border:1px solid rgba(217,119,6,.22);padding:13px;border-radius:9px;font-size:15px;font-weight:600}
+
+/* BOOK DETAIL MODAL */
+#book-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px)}
+#book-overlay.open{display:flex}
+#book-box{background:#0f172a;border-radius:16px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.7);border:1px solid rgba(217,119,6,.18)}
+#book-top{display:flex}
+#book-cover-col{width:155px;flex-shrink:0}
+#book-info-col{padding:22px 20px;flex:1}
+#book-avail{font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+#book-modal-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:6px}
+#book-modal-author{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:12px}
+#book-modal-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.8}
+#book-actions{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:10px;flex-wrap:wrap}
+.book-dl-btn{flex:1;background:linear-gradient(135deg,#b45309,#d97706);color:#fff;border:none;padding:11px 16px;border-radius:7px;font-size:14px;font-weight:700;text-align:center}
+.book-read-btn{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.12);padding:11px 16px;border-radius:7px;font-size:14px;font-weight:600;text-align:center}
+.book-req-btn{flex:1;background:linear-gradient(135deg,#065f46,#047857);color:#fff;border:none;padding:11px 16px;border-radius:7px;font-size:14px;font-weight:700;text-align:center}
+#book-close{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);padding:11px 16px;border-radius:7px;font-size:14px}
+
+/* FOOTER */
+#footer{background:#060503;border-top:1px solid rgba(217,119,6,.08);padding:50px 20px}
+#footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:38px}
+#footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-brand-icon{width:38px;height:38px;background:linear-gradient(135deg,#b45309,#d97706);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.footer-brand-name{font-family:'Playfair Display',serif;font-size:19px;color:#fbbf24;font-weight:700}
+#footer-tagline{color:rgba(217,119,6,.28);font-size:13px;line-height:1.9;max-width:210px}
+#footer-built{margin-top:14px;font-size:9px;color:rgba(217,119,6,.18);letter-spacing:2px;text-transform:uppercase}
+.footer-col-title{font-size:9px;font-weight:700;color:rgba(217,119,6,.35);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+.footer-link{display:block;background:none;border:none;color:rgba(255,255,255,.28);font-size:14px;padding:6px 0;transition:color .15px;font-family:Georgia,serif}
+.footer-link:hover{color:#fbbf24}
+#footer-bottom{max-width:1100px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(217,119,6,.06);text-align:center;font-size:9px;color:rgba(217,119,6,.14);letter-spacing:3px;text-transform:uppercase}
+
+/* ANIMATIONS */
+@keyframes blink{0%,100%{opacity:.3;transform:scale(.75)}50%{opacity:1;transform:scale(1.1)}}
+.typing-dot{animation:blink 1s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #desk-nav{display:none}
+  #mob-ham{display:flex;align-items:center;justify-content:center}
+  #hero-title{font-size:clamp(36px,10vw,56px)}
+  .book-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .genre-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  #book-top{flex-direction:column}
+  #book-cover-col{width:100%}
+  #req-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div id="nav">
+  <div id="nav-inner">
+    <button id="logo-btn" onclick="showPage('home')">
+      <div id="logo-icon" style="overflow:hidden;padding:0"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=80&q=80" style="width:40px;height:40px;object-fit:cover;border-radius:9px;display:block"/></div>
+      <div>
+        <div id="logo-name">Digital Library</div>
+        <div id="logo-tag">Knowledge Is Free</div>
+      </div>
+    </button>
+    <div id="desk-nav">
+      <button class="nav-btn active" onclick="showPage('home')" data-page="home">Home</button>
+      <button class="nav-btn" onclick="showPage('library')" data-page="library">Library</button>
+      <button class="nav-btn" onclick="showPage('request')" data-page="request">Get a Book</button>
+      <button class="nav-btn" onclick="showPage('sources')" data-page="sources">Free Sources</button>
+      <button class="nav-btn" onclick="showPage('community')" data-page="community">Community</button>
+      <button id="join-nav-btn" onclick="openJoinModal()">Join Free</button>
+    </div>
+    <button id="mob-ham" onclick="toggleMobMenu()">☰</button>
+  </div>
+  <div id="mob-menu">
+    <button class="mob-nav-btn active" onclick="showPage('home')" data-mob-page="home">Home</button>
+    <button class="mob-nav-btn" onclick="showPage('library')" data-mob-page="library">Library</button>
+    <button class="mob-nav-btn" onclick="showPage('request')" data-mob-page="request">Get a Book</button>
+    <button class="mob-nav-btn" onclick="showPage('sources')" data-mob-page="sources">Free Sources</button>
+    <button class="mob-nav-btn" onclick="showPage('community')" data-mob-page="community">Community</button>
+    <button id="mob-join-btn" onclick="openJoinModal()">Join Free</button>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div id="hero">
+    <div id="hero-bg"></div>
+    <div id="hero-overlay"></div>
+    <div id="hero-fade"></div>
+    <div id="hero-content">
+      <div id="hero-badge"><span class="hero-dot"></span>Free · Global · No Sign-up Required</div>
+      <h1 id="hero-title">Every Book.<br><em>Delivered Free.</em><br>Always.</h1>
+      <p id="hero-sub">The world's first WhatsApp-powered digital library. 50 classics for instant download. Any other book delivered to your WhatsApp — free, always.</p>
+      <div id="hero-btns">
+        <button class="btn-gold" onclick="showPage('library')">Enter the Library</button>
+        <button class="btn-ghost" onclick="showPage('request')">Request Any Book →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="stats">
+    <div id="stats-inner">
+      <div><div class="stat-val">50+</div><div class="stat-lbl">Free Classics</div></div>
+      <div><div class="stat-val">34+</div><div class="stat-lbl">Telegram Sources</div></div>
+      <div><div class="stat-val">8</div><div class="stat-lbl">Web Sources</div></div>
+      <div><div class="stat-val">25</div><div class="stat-lbl">Genre Rooms</div></div>
+      <div><div class="stat-val">12,400+</div><div class="stat-lbl">Books Delivered</div></div>
+    </div>
+  </div>
+
+  <div class="section" style="background:#0f0e0a">
+    <div class="section-inner">
+      <div class="section-head">
+        <div><div class="section-label label-gold">Available on Request</div><h2 class="section-title">Featured Books</h2></div>
+        <button class="btn-outline-gold" onclick="showPage('request');setReqTab('request')">Request any book →</button>
+      </div>
+      <div class="book-grid" id="featured-grid"></div>
+    </div>
+  </div>
+
+  <div class="section" style="background:#0a0803;border-top:1px solid rgba(34,197,94,.08)">
+    <div class="section-inner">
+      <div class="section-head">
+        <div><div class="section-label label-green">Instant Download — Completely Free</div><h2 class="section-title">50 Free Classics</h2></div>
+        <button class="btn-outline-green" onclick="showPage('request');setReqTab('free')">Browse all 50 →</button>
+      </div>
+      <div class="book-grid" id="free-preview-grid"></div>
+    </div>
+  </div>
+
+  <div id="how">
+    <div class="section-inner" style="max-width:1100px">
+      <div style="text-align:center;margin-bottom:48px">
+        <div class="section-label label-gold" style="text-align:center">The Process</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:#fff">How Digital Library Works</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-icon-row"><div class="step-icon">⬇</div><span class="step-badge" style="background:#16a34a">Instant</span></div>
+          <div class="step-num">STEP 1</div>
+          <div class="step-title">Free Classics: Instant</div>
+          <div class="step-desc">50 public domain masterworks — download as EPUB or read online instantly. No account, no waiting.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon-row"><div class="step-icon">📡</div><span class="step-badge" style="background:#1d4ed8">Automated</span></div>
+          <div class="step-num">STEP 2</div>
+          <div class="step-title">We Search 34 Sources</div>
+          <div class="step-desc">For any modern book, our system scans 34 Telegram channels and 8 free web sources simultaneously.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-icon-row"><div class="step-icon">📲</div><span class="step-badge" style="background:#059669">Direct</span></div>
+          <div class="step-num">STEP 3</div>
+          <div class="step-title">Delivered to WhatsApp</div>
+          <div class="step-desc">Books are sent as PDF or EPUB files directly to your WhatsApp DM. The actual file — not a link.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cta-green">
+    <div style="max-width:540px;margin:0 auto">
+      <div style="font-size:44px;margin-bottom:16px">📱</div>
+      <h2>Join 5,000+ Readers on WhatsApp</h2>
+      <p>Type any book title followed by "book" in our group — delivered to your DM in minutes.<br><em>Example: "Atomic Habits book"</em></p>
+      <div class="cta-btns">
+        <a class="btn-green" href="https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx" target="_blank" style="display:inline-block;border-radius:9px;padding:15px 32px;font-size:16px;font-weight:700">Join WhatsApp Community</a>
+        <button class="btn-ghost" onclick="openJoinModal()">Create Free Account</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="donate-bar">
+    <p>This library runs on a cloud server. Every donation keeps books free for someone who cannot afford them.</p>
+    <div class="mpesa-box"><div class="mpesa-label">M-Pesa · Any Amount</div><div class="mpesa-num">0748689103</div></div>
+  </div>
+</div>
+
+<!-- LIBRARY PAGE -->
+<div id="page-library" class="page" style="background:#0a0803;min-height:100vh">
+  <div class="section-inner" style="padding:48px 20px;max-width:1280px;margin:0 auto">
+    <div id="genre-list-view">
+      <div style="margin-bottom:40px">
+        <div class="section-label label-gold">The Grand Collection</div>
+        <h1 style="font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:#fff;margin-bottom:26px">Library Rooms</h1>
+        <div id="lib-search-wrap">
+          <span id="lib-search-icon">🔍</span>
+          <input id="lib-search" placeholder="Search any title or author…" oninput="libSearch(this.value)"/>
+        </div>
+      </div>
+      <div id="lib-search-results"></div>
+      <div class="section-label label-gold" style="margin-bottom:18px">25 Genre Rooms</div>
+      <div class="genre-grid" id="genre-grid"></div>
+    </div>
+    <div id="genre-detail">
+      <button id="genre-back" onclick="closeGenreDetail()">← Back to Library</button>
+      <div id="genre-hero">
+        <img id="genre-hero-img" src="" alt=""/>
+        <div id="genre-hero-overlay"></div>
+        <div id="genre-hero-content">
+          <div id="genre-hero-icon"></div>
+          <h1 id="genre-hero-title"></h1>
+          <p id="genre-hero-sub"></p>
+        </div>
+      </div>
+      <div id="genre-free-books"></div>
+      <div id="genre-request-cta">
+        <div>
+          <div class="section-label label-gold" id="genre-cta-label">More Books</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:19px;color:#fff;margin-bottom:5px">Looking for a specific title?</h3>
+          <p style="color:rgba(255,255,255,.35);font-size:13px">Request any modern book and receive it via WhatsApp.</p>
+        </div>
+        <button class="btn-gold" onclick="showPage('request');setReqTab('request')">Request via WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REQUEST PAGE -->
+<div id="page-request" class="page" style="background:#0a0803;min-height:100vh;padding:52px 20px">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto">
+    <div style="margin-bottom:40px">
+      <div class="section-label label-gold">Book Delivery</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;margin-bottom:12px">Get Any Book</h1>
+      <p style="color:rgba(255,255,255,.4);font-size:16px;max-width:500px;line-height:1.85">50 free classics download instantly. For any other book, enter your WhatsApp number and we'll deliver it as a file.</p>
+    </div>
+    <div id="req-tabs">
+      <button class="req-tab active" onclick="setReqTab('free')">⬇ Free Classics</button>
+      <button class="req-tab" onclick="setReqTab('request')">📲 Request Modern Book</button>
+    </div>
+    <div id="free-tab-content" class="active">
+      <div id="free-info-bar"><span>✅</span><span>All 50 books below are completely free and in the public domain. Click any book to download as EPUB or read online — no account needed.</span></div>
+      <div class="book-grid" id="all-free-grid"></div>
+    </div>
+    <div id="request-tab-content">
+      <div id="req-grid">
+        <div id="req-form-card">
+          <h2 id="req-form-title">Send to Your WhatsApp</h2>
+          <p id="req-form-sub">Enter the book title and your WhatsApp number. We search 34 Telegram channels and deliver the file directly to your inbox.</p>
+          <div id="req-form-fields">
+            <label class="form-label">Book Title *</label>
+            <input class="form-input" id="req-book" placeholder="e.g. Atomic Habits, Dune, 1984…" oninput="checkReqForm()"/>
+            <label class="form-label">WhatsApp Number *</label>
+            <input class="form-input" id="req-phone" placeholder="+254 748 689 103" oninput="checkReqForm()"/>
+            <button id="req-submit" onclick="submitReq()" disabled>Request Book Free →</button>
+            <div id="req-tip"><span>💡</span><span>Or join our WhatsApp group and type the book name + "book". No form needed — faster delivery.</span></div>
+          </div>
+          <div id="req-success">
+            <div id="req-success-icon" style="width:52px;height:52px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px">✓</div>
+            <h3 id="req-success-heading">Request Received!</h3>
+            <p id="req-success-msg">Searching for <strong id="req-success-book" style="color:#fff"></strong>.<br>We'll deliver it to <strong id="req-success-phone" style="color:#fff"></strong> shortly.</p>
+            <div id="req-wa-fallback" style="display:none;margin-top:16px;padding:14px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.25);border-radius:9px">
+              <p style="color:rgba(255,255,255,.55);font-size:13px;margin-bottom:10px">Our server is busy right now. Get your book instantly via WhatsApp:</p>
+              <a id="req-wa-link" href="#" target="_blank" style="display:block;background:#25D366;color:#fff;text-align:center;padding:11px;border-radius:7px;font-size:14px;font-weight:700;margin-bottom:8px">Open WhatsApp to Request</a>
+              <a href="https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx" target="_blank" style="display:block;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);text-align:center;padding:11px;border-radius:7px;font-size:13px;border:1px solid rgba(255,255,255,.1)">Or join the library group</a>
+            </div>
+            <button id="req-another" onclick="resetReqForm()" style="margin-top:14px">Request Another Book</button>
+          </div>
+        </div>
+        <div id="chat-card">
+          <div id="chat-header">
+            <div class="chat-dot"></div>
+            <div id="chat-title">AI Librarian</div>
+            <div id="chat-live">LIVE</div>
+          </div>
+          <div id="chat-msgs">
+            <div class="msg-row">
+              <div class="msg-avatar">📚</div>
+              <div class="msg-bubble bot">Welcome to Digital Library. I can find any book, recommend reads by genre, or guide you to a free download. What would you like to read today?</div>
+            </div>
+          </div>
+          <div id="chat-typing"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
+          <div id="chat-footer">
+            <input id="chat-input" placeholder="Ask for a recommendation…" onkeydown="if(event.key==='Enter')sendChat()"/>
+            <button id="chat-send" onclick="sendChat()">→</button>
+          </div>
+        </div>
+      </div>
+      <div id="join-banner">
+        <div>
+          <h3>Join the WhatsApp Library Group</h3>
+          <p>Type any book name + "book" in the group — delivered to your DM. <em>Example: "Atomic Habits book"</em></p>
+        </div>
+        <a href="https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx" target="_blank" style="background:#25D366;color:#fff;padding:12px 26px;border-radius:8px;font-size:14px;font-weight:700;white-space:nowrap">Join Group</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOURCES PAGE -->
+<div id="page-sources" class="page" style="background:#0a0803;min-height:100vh;padding:52px 20px">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto">
+    <div style="margin-bottom:44px">
+      <div class="section-label label-gold">Open Access</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;margin-bottom:12px">Free Book Sources</h1>
+      <p style="color:rgba(255,255,255,.38);font-size:16px;max-width:480px;line-height:1.85">Every source is free, legal, and searchable. Our bot queries them automatically — or visit any directly.</p>
+    </div>
+    <div class="sources-grid">
+      <a class="source-card" href="https://www.gutenberg.org" target="_blank"><div class="source-icon">📜</div><div class="source-name">Project Gutenberg</div><p class="source-desc">70,000+ free public domain classics. The original free library.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://archive.org" target="_blank"><div class="source-icon">🏛️</div><div class="source-name">Internet Archive</div><p class="source-desc">Millions of scanned books, magazines, and out-of-print texts.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://openlibrary.org" target="_blank"><div class="source-icon">📗</div><div class="source-name">Open Library</div><p class="source-desc">Free reads and borrowable titles with a clean interface.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://standardebooks.org" target="_blank"><div class="source-icon">✨</div><div class="source-name">Standard Ebooks</div><p class="source-desc">Beautifully formatted classic and public-domain books.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://manybooks.net" target="_blank"><div class="source-icon">📋</div><div class="source-name">ManyBooks</div><p class="source-desc">Free classics and indie books in EPUB and PDF formats.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://www.globalgreyebooks.com" target="_blank"><div class="source-icon">🌐</div><div class="source-name">Global Grey</div><p class="source-desc">Philosophy, occult, mythology, history — all completely free.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://www.pdfbooksworld.com" target="_blank"><div class="source-icon">📄</div><div class="source-name">PDFBooksWorld</div><p class="source-desc">Public domain books in clean PDF format.</p><div class="source-link">Visit source →</div></a>
+      <a class="source-card" href="https://wikisource.org" target="_blank"><div class="source-icon">📖</div><div class="source-name">Wikisource</div><p class="source-desc">Historical texts, older books and manuscripts.</p><div class="source-link">Visit source →</div></a>
+    </div>
+    <div style="background:rgba(255,255,255,.025);border:1px solid rgba(217,119,6,.12);border-radius:14px;padding:38px;text-align:center">
+      <div style="font-size:34px;margin-bottom:12px">🔭</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#fbbf24;margin-bottom:10px">Book not on any free source?</h2>
+      <p style="color:rgba(255,255,255,.38);font-size:15px;margin-bottom:24px">We also search 34 Telegram library channels. Request it and we'll find it.</p>
+      <button class="btn-gold" onclick="showPage('request');setReqTab('request')">Request a Book</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY PAGE -->
+<div id="page-community" class="page" style="background:#0a0803;min-height:100vh;padding:52px 20px">
+  <div class="section-inner" style="max-width:1100px;margin:0 auto">
+    <div style="margin-bottom:44px">
+      <div class="section-label label-gold">Reading Communities</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;margin-bottom:12px">Book Clubs</h1>
+      <p style="color:rgba(255,255,255,.38);font-size:16px;max-width:500px;line-height:1.85">25 genre-based WhatsApp book clubs. Discuss reads, get recommendations, meet readers worldwide.</p>
+    </div>
+    <div id="main-community-card">
+      <div>
+        <div class="section-label label-green">Main Hub</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:8px">Digital Library Community</h2>
+        <p style="color:rgba(255,255,255,.5);font-size:14px;max-width:380px;line-height:1.8">All genres, all readers. Book announcements, weekly recommendations, and the library bot.</p>
+      </div>
+      <a href="https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx" target="_blank" style="background:#25D366;color:#fff;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;box-shadow:0 4px 20px rgba(37,211,102,.3);white-space:nowrap">Join Main Community</a>
+    </div>
+    <div class="section-label label-gold" style="margin-bottom:16px">25 Genre Rooms</div>
+    <div class="comm-grid" id="comm-grid"></div>
+  </div>
+</div>
+
+<!-- JOIN MODAL -->
+<div id="modal-overlay" onclick="closeJoinModal()">
+  <div id="modal-box" onclick="event.stopPropagation()">
+    <button id="modal-close" onclick="closeJoinModal()">✕</button>
+    <div id="modal-form-view">
+      <div id="modal-label">Free Forever</div>
+      <h2 id="modal-title">Join Digital Library</h2>
+      <p id="modal-sub">No credit card. No conditions. Just books.</p>
+      <label class="form-label">Full Name</label>
+      <input class="form-input" id="m-name" placeholder="Your name" oninput="checkModalForm()"/>
+      <label class="form-label">Email Address</label>
+      <input class="form-input" id="m-email" type="email" placeholder="your@email.com" oninput="checkModalForm()"/>
+      <label class="form-label">WhatsApp Number</label>
+      <input class="form-input" id="m-phone" type="tel" placeholder="+254 748 689 103"/>
+      <label class="form-label" style="margin-top:2px">Favourite Genre</label>
+      <select class="form-input" id="m-genre" style="background:#1a1612;margin-bottom:22px">
+        <option value="">Select genre (optional)</option>
+      </select>
+      <button id="modal-submit" onclick="submitJoin()" disabled>Open My Account →</button>
+    </div>
+    <div id="modal-success">
+      <div style="width:64px;height:64px;background:linear-gradient(135deg,#b45309,#d97706);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px">✓</div>
+      <h2 id="modal-welcome"></h2>
+      <p id="modal-success-msg"></p>
+      <a class="modal-wa-btn" href="https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx" target="_blank">Join WhatsApp Community</a>
+      <button id="modal-enter" onclick="closeJoinModal();showPage('library')">Enter the Library</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOK DETAIL MODAL -->
+<div id="book-overlay" onclick="closeBookModal()">
+  <div id="book-box" onclick="event.stopPropagation()">
+    <div id="book-top">
+      <div id="book-cover-col">
+        <img id="book-modal-img" src="" alt="" style="width:100%;height:240px;object-fit:cover;display:block"/>
+      </div>
+      <div id="book-info-col">
+        <div id="book-avail"></div>
+        <div id="book-modal-title"></div>
+        <div id="book-modal-author"></div>
+        <div id="book-modal-desc"></div>
+      </div>
+    </div>
+    <div id="book-actions">
+      <a id="book-dl-link" class="book-dl-btn" href="#" target="_blank">⬇ Download EPUB</a>
+      <a id="book-read-link" class="book-read-btn" href="#" target="_blank">📖 Read Online</a>
+      <button id="book-req-btn" class="book-req-btn" onclick="reqFromModal()" style="display:none">📲 Request via WhatsApp</button>
+      <button id="book-close" onclick="closeBookModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div id="footer-inner">
+    <div>
+      <div id="footer-brand">
+        <div class="footer-brand-icon" style="overflow:hidden;padding:0"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=80&q=80" style="width:38px;height:38px;object-fit:cover;border-radius:9px;display:block"/></div>
+        <div class="footer-brand-name">Digital Library</div>
+      </div>
+      <div id="footer-tagline">A free global library for every reader who deserves access to knowledge.</div>
+      <div id="footer-built">Built in Kenya · Serving the World</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Library</div>
+      <button class="footer-link" onclick="showPage('library')">Browse Genres</button>
+      <button class="footer-link" onclick="showPage('request');setReqTab('free')">Free Classics</button>
+      <button class="footer-link" onclick="showPage('request');setReqTab('request')">Request a Book</button>
+      <button class="footer-link" onclick="showPage('sources')">Free Sources</button>
+    </div>
+    <div>
+      <div class="footer-col-title">Community</div>
+      <button class="footer-link" onclick="showPage('community')">Book Clubs</button>
+      <button class="footer-link" onclick="showPage('community')">Join WhatsApp</button>
+      <button class="footer-link" onclick="openJoinModal()">Membership</button>
+    </div>
+    <div>
+      <div class="footer-col-title">Support the Library</div>
+      <p style="color:rgba(255,255,255,.18);font-size:12px;margin-bottom:12px;line-height:1.8">This library runs on a cloud server. Every donation keeps books free.</p>
+      <div class="mpesa-box"><div class="mpesa-label">M-Pesa · Any Amount</div><div class="mpesa-num">0748689103</div></div>
+    </div>
+  </div>
+  <div id="footer-bottom">Knowledge Is Free · Always · Digital Library</div>
+</footer>
+
+<script>
+// ─── DATA ───
+var COMMUNITY = "https://chat.whatsapp.com/KtSK0y0i91n6UiR3zdRxjx";
+
+// covers: Open Library CDN (stable, no API key, never expires)
+// ol: Open Library work ID for cover, gut: Gutenberg ID for download
+var FREE_BOOKS = [
+  {title:"Pride and Prejudice",author:"Jane Austen",genre:"romance",year:1813,cover:"https://covers.openlibrary.org/b/id/8739161-L.jpg",gut:1342,desc:"A sharp, witty story of love and social class in Georgian England."},
+  {title:"Frankenstein",author:"Mary Shelley",genre:"horror",year:1818,cover:"https://covers.openlibrary.org/b/id/8273861-L.jpg",gut:84,desc:"The original science-horror novel about creation gone terribly wrong."},
+  {title:"The Picture of Dorian Gray",author:"Oscar Wilde",genre:"fiction",year:1890,cover:"https://covers.openlibrary.org/b/id/8306095-L.jpg",gut:174,desc:"A decadent story of vanity, corruption and a portrait that bears all sins."},
+  {title:"Dracula",author:"Bram Stoker",genre:"horror",year:1897,cover:"https://covers.openlibrary.org/b/id/8222812-L.jpg",gut:345,desc:"The definitive vampire novel — gothic, chilling, impossible to put down."},
+  {title:"Dr Jekyll and Mr Hyde",author:"R.L. Stevenson",genre:"horror",year:1886,cover:"https://covers.openlibrary.org/b/id/8217732-L.jpg",gut:43,desc:"A dark exploration of the duality of human nature."},
+  {title:"Moby Dick",author:"Herman Melville",genre:"adventure",year:1851,cover:"https://covers.openlibrary.org/b/id/8231432-L.jpg",gut:2701,desc:"An epic voyage of obsession, the sea, and an impossible white whale."},
+  {title:"Tom Sawyer",author:"Mark Twain",genre:"adventure",year:1876,cover:"https://covers.openlibrary.org/b/id/8739169-L.jpg",gut:74,desc:"A boy's life of mischief and adventure along the Mississippi River."},
+  {title:"A Tale of Two Cities",author:"Charles Dickens",genre:"fiction",year:1859,cover:"https://covers.openlibrary.org/b/id/8739137-L.jpg",gut:98,desc:"Revolution, sacrifice, and resurrection set against the French Revolution."},
+  {title:"Great Expectations",author:"Charles Dickens",genre:"fiction",year:1861,cover:"https://covers.openlibrary.org/b/id/8739153-L.jpg",gut:1400,desc:"A poor orphan's journey through class, ambition, and what it means to be a gentleman."},
+  {title:"Crime and Punishment",author:"Dostoevsky",genre:"psychology",year:1866,cover:"https://covers.openlibrary.org/b/id/8739160-L.jpg",gut:2554,desc:"A murderer's psychological unraveling — one of fiction's greatest works."},
+  {title:"The Brothers Karamazov",author:"Dostoevsky",genre:"philosophy",year:1880,cover:"https://covers.openlibrary.org/b/id/8091016-L.jpg",gut:28054,desc:"A father's murder, three sons, and every philosophical question that matters."},
+  {title:"Anna Karenina",author:"Leo Tolstoy",genre:"romance",year:1878,cover:"https://covers.openlibrary.org/b/id/8739155-L.jpg",gut:1399,desc:"Love, betrayal, and society — possibly the greatest novel ever written."},
+  {title:"War and Peace",author:"Leo Tolstoy",genre:"history",year:1869,cover:"https://covers.openlibrary.org/b/id/8739168-L.jpg",gut:2600,desc:"Russia, Napoleon, love, and death — the ultimate novel of human experience."},
+  {title:"Don Quixote",author:"Cervantes",genre:"fiction",year:1605,cover:"https://covers.openlibrary.org/b/id/8739143-L.jpg",gut:996,desc:"The world's first modern novel — a knight tilting at windmills and dreaming."},
+  {title:"The Odyssey",author:"Homer",genre:"adventure",year:-800,cover:"https://covers.openlibrary.org/b/id/8739164-L.jpg",gut:1727,desc:"The 3,000-year-old journey home — monsters, gods, and a man trying to return."},
+  {title:"Meditations",author:"Marcus Aurelius",genre:"philosophy",year:180,cover:"https://covers.openlibrary.org/b/id/8739159-L.jpg",gut:2680,desc:"The Roman emperor's private journal — Stoic philosophy at its most intimate."},
+  {title:"The Republic",author:"Plato",genre:"philosophy",year:-375,cover:"https://covers.openlibrary.org/b/id/8739165-L.jpg",gut:1497,desc:"What is justice? What is the ideal society? Plato's greatest dialogue."},
+  {title:"The Art of War",author:"Sun Tzu",genre:"business",year:-500,cover:"https://covers.openlibrary.org/b/id/8739136-L.jpg",gut:132,desc:"The ancient Chinese manual for strategy — applied everywhere from boardrooms to battles."},
+  {title:"Sherlock Holmes",author:"Arthur Conan Doyle",genre:"mystery",year:1892,cover:"https://covers.openlibrary.org/b/id/8739167-L.jpg",gut:1661,desc:"The world's greatest detective in 12 unforgettable short stories."},
+  {title:"Hound of the Baskervilles",author:"Arthur Conan Doyle",genre:"mystery",year:1902,cover:"https://covers.openlibrary.org/b/id/8219954-L.jpg",gut:2852,desc:"Holmes and Watson face a supernatural terror on the Devonshire moors."},
+  {title:"The Count of Monte Cristo",author:"Alexandre Dumas",genre:"adventure",year:1844,cover:"https://covers.openlibrary.org/b/id/8739141-L.jpg",gut:1184,desc:"The ultimate revenge story — betrayal, imprisonment, treasure, justice."},
+  {title:"The Three Musketeers",author:"Alexandre Dumas",genre:"adventure",year:1844,cover:"https://covers.openlibrary.org/b/id/8739170-L.jpg",gut:1257,desc:"All for one and one for all — swashbuckling heroism in 17th century France."},
+  {title:"Jane Eyre",author:"Charlotte Bronte",genre:"romance",year:1847,cover:"https://covers.openlibrary.org/b/id/8739156-L.jpg",gut:1260,desc:"An orphan's fierce quest for love, dignity, and independence."},
+  {title:"Wuthering Heights",author:"Emily Bronte",genre:"romance",year:1847,cover:"https://covers.openlibrary.org/b/id/8739172-L.jpg",gut:768,desc:"The darkest, most passionate love story in the English language."},
+  {title:"Sense and Sensibility",author:"Jane Austen",genre:"romance",year:1811,cover:"https://covers.openlibrary.org/b/id/8739166-L.jpg",gut:161,desc:"Two sisters, two very different hearts — Austen at her most human."},
+  {title:"The Call of the Wild",author:"Jack London",genre:"adventure",year:1903,cover:"https://covers.openlibrary.org/b/id/8224150-L.jpg",gut:215,desc:"A dog's return to the wild — raw, elemental, and unforgettable."},
+  {title:"The Time Machine",author:"H.G. Wells",genre:"scifi",year:1895,cover:"https://covers.openlibrary.org/b/id/8217738-L.jpg",gut:35,desc:"Mankind's far future: two species, one invented by humanity's own inequalities."},
+  {title:"The War of the Worlds",author:"H.G. Wells",genre:"scifi",year:1898,cover:"https://covers.openlibrary.org/b/id/8224244-L.jpg",gut:36,desc:"Martians invade Victorian England — the original alien invasion story."},
+  {title:"Around the World in 80 Days",author:"Jules Verne",genre:"adventure",year:1872,cover:"https://covers.openlibrary.org/b/id/8739135-L.jpg",gut:103,desc:"A gentleman's wager becomes the most thrilling race on the planet."},
+  {title:"20,000 Leagues Under the Sea",author:"Jules Verne",genre:"scifi",year:1870,cover:"https://covers.openlibrary.org/b/id/8739132-L.jpg",gut:164,desc:"Captain Nemo and his submarine Nautilus — science fiction at its most grand."},
+  {title:"Alice in Wonderland",author:"Lewis Carroll",genre:"ya",year:1865,cover:"https://covers.openlibrary.org/b/id/8739134-L.jpg",gut:11,desc:"Down the rabbit hole into a world of beautiful, maddening nonsense."},
+  {title:"Treasure Island",author:"R.L. Stevenson",genre:"adventure",year:1883,cover:"https://covers.openlibrary.org/b/id/8739171-L.jpg",gut:120,desc:"Pirates, buried gold, and Long John Silver — the adventure story above all others."},
+  {title:"Walden",author:"Henry David Thoreau",genre:"selfdev",year:1854,cover:"https://covers.openlibrary.org/b/id/8217744-L.jpg",gut:205,desc:"Two years alone in the woods — the original guide to living deliberately."},
+  {title:"The Prince",author:"Machiavelli",genre:"politics",year:1532,cover:"https://covers.openlibrary.org/b/id/8739163-L.jpg",gut:1232,desc:"The most notorious political manual ever written — power without illusion."},
+  {title:"Common Sense",author:"Thomas Paine",genre:"politics",year:1776,cover:"https://covers.openlibrary.org/b/id/8217748-L.jpg",gut:147,desc:"The pamphlet that sparked the American Revolution."},
+  {title:"Narrative of Frederick Douglass",author:"Frederick Douglass",genre:"biography",year:1845,cover:"https://covers.openlibrary.org/b/id/8217752-L.jpg",gut:23,desc:"The most powerful slave narrative ever written — raw, brilliant, necessary."},
+  {title:"The Souls of Black Folk",author:"W.E.B. Du Bois",genre:"african",year:1903,cover:"https://covers.openlibrary.org/b/id/8217756-L.jpg",gut:408,desc:"The essay collection that defined the Black American experience."},
+  {title:"The Arabian Nights",author:"Anonymous",genre:"fiction",year:800,cover:"https://covers.openlibrary.org/b/id/8217760-L.jpg",gut:128,desc:"Scheherazade's thousand tales — the richest story collection in world literature."},
+  {title:"Emma",author:"Jane Austen",genre:"fiction",year:1815,cover:"https://covers.openlibrary.org/b/id/8739147-L.jpg",gut:158,desc:"A well-meaning matchmaker who cannot read her own heart."},
+  {title:"Self-Reliance",author:"Ralph Waldo Emerson",genre:"selfdev",year:1841,cover:"https://covers.openlibrary.org/b/id/8217764-L.jpg",gut:16643,desc:"The essay that launched American individualism."},
+  {title:"The Scarlet Letter",author:"Nathaniel Hawthorne",genre:"fiction",year:1850,cover:"https://covers.openlibrary.org/b/id/8739166-L.jpg",gut:25344,desc:"Guilt, sin, and redemption in Puritan New England."},
+  {title:"Up from Slavery",author:"Booker T. Washington",genre:"biography",year:1901,cover:"https://covers.openlibrary.org/b/id/8217768-L.jpg",gut:2376,desc:"From enslaved boy to founder of Tuskegee University — an extraordinary life."},
+  {title:"Through the Looking-Glass",author:"Lewis Carroll",genre:"ya",year:1871,cover:"https://covers.openlibrary.org/b/id/8739139-L.jpg",gut:12,desc:"Stranger, darker and even more wonderful than the first."},
+  {title:"The Jungle Book",author:"Rudyard Kipling",genre:"adventure",year:1894,cover:"https://covers.openlibrary.org/b/id/8217772-L.jpg",gut:236,desc:"Mowgli raised by wolves — timeless tales of the Indian jungle."},
+  {title:"White Fang",author:"Jack London",genre:"adventure",year:1906,cover:"https://covers.openlibrary.org/b/id/8217776-L.jpg",gut:910,desc:"A wolf-dog's journey from wilderness to civilization — and back."},
+  {title:"The Iliad",author:"Homer",genre:"history",year:-750,cover:"https://covers.openlibrary.org/b/id/8739154-L.jpg",gut:6130,desc:"Ten years of war, heroism, rage and loss outside the walls of Troy."},
+  {title:"The Invisible Man",author:"H.G. Wells",genre:"scifi",year:1897,cover:"https://covers.openlibrary.org/b/id/8217780-L.jpg",gut:5230,desc:"Invisibility drives a scientist to madness — a chilling parable."},
+  {title:"Huckleberry Finn",author:"Mark Twain",genre:"adventure",year:1884,cover:"https://covers.openlibrary.org/b/id/8739153-L.jpg",gut:76,desc:"A journey down the Mississippi — funny, painful, and deeply American."},
+  {title:"Utopia",author:"Thomas More",genre:"politics",year:1516,cover:"https://covers.openlibrary.org/b/id/8217784-L.jpg",gut:2130,desc:"The original ideal society — the book that gave us the word utopia."},
+  {title:"Norse Mythology",author:"Anonymous",genre:"religion",year:1300,cover:"https://covers.openlibrary.org/b/id/8217788-L.jpg",gut:14726,desc:"Odin, Thor, Loki, and Ragnarok — the great Norse myths in full."}
+];
+
+// Featured modern books — covers from Open Library ISBN lookup (most reliable for recent books)
+var FEATURED = [
+  {title:"Atomic Habits",author:"James Clear",cover:"https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg",color:"#1a3a5c"},
+  {title:"Dune",author:"Frank Herbert",cover:"https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg",color:"#3d2b1a"},
+  {title:"Things Fall Apart",author:"Chinua Achebe",cover:"https://covers.openlibrary.org/b/isbn/9780385474542-L.jpg",color:"#1a2f1a"},
+  {title:"The Alchemist",author:"Paulo Coelho",cover:"https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",color:"#3d1a1a"},
+  {title:"1984",author:"George Orwell",cover:"https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg",color:"#1a1a3d"},
+  {title:"Sapiens",author:"Yuval Noah Harari",cover:"https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",color:"#2d1a3d"},
+  {title:"Psychology of Money",author:"Morgan Housel",cover:"https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",color:"#1a3d2d"},
+  {title:"A Game of Thrones",author:"G.R.R. Martin",cover:"https://covers.openlibrary.org/b/isbn/9780553593716-L.jpg",color:"#2d1a1a"},
+  {title:"Gone Girl",author:"Gillian Flynn",cover:"https://covers.openlibrary.org/b/isbn/9780307588364-L.jpg",color:"#1a1a1a"},
+  {title:"Rich Dad Poor Dad",author:"Robert Kiyosaki",cover:"https://covers.openlibrary.org/b/isbn/9781612680194-L.jpg",color:"#3d2d1a"},
+  {title:"The 48 Laws of Power",author:"Robert Greene",cover:"https://covers.openlibrary.org/b/isbn/9780140280197-L.jpg",color:"#1a0a0a"},
+  {title:"Think and Grow Rich",author:"Napoleon Hill",cover:"https://covers.openlibrary.org/b/isbn/9781585424337-L.jpg",color:"#0a1a0a"}
+];
+
+var GENRES = [
+  {id:"fiction",name:"Literary Fiction",icon:"",img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=70",sub:"Historical · Magical Realism · Satire",color:"#78350f",accent:"#f59e0b"},
+  {id:"fantasy",name:"Fantasy",icon:"",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=70",sub:"Epic · Dark · Urban · Mythic",color:"#4c1d95",accent:"#8b5cf6"},
+  {id:"scifi",name:"Science Fiction",icon:"",img:"https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=500&q=70",sub:"Cyberpunk · Space Opera · Dystopian",color:"#0c4a6e",accent:"#38bdf8"},
+  {id:"horror",name:"Horror",icon:"",img:"https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=500&q=70",sub:"Gothic · Cosmic · Psychological",color:"#7f1d1d",accent:"#f87171"},
+  {id:"mystery",name:"Mystery & Thriller",icon:"",img:"https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&q=70",sub:"Noir · Detective · Spy · Legal",color:"#064e3b",accent:"#34d399"},
+  {id:"romance",name:"Romance",icon:"",img:"https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=500&q=70",sub:"Historical · Dark · Contemporary",color:"#831843",accent:"#f472b6"},
+  {id:"adventure",name:"Adventure",icon:"",img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=500&q=70",sub:"Survival · War · Pirate · Treasure",color:"#14532d",accent:"#4ade80"},
+  {id:"selfdev",name:"Self-Development",icon:"",img:"https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=500&q=70",sub:"Habits · Leadership · Productivity",color:"#134e4a",accent:"#2dd4bf"},
+  {id:"business",name:"Business & Finance",icon:"",img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=500&q=70",sub:"Investing · Startups · Economics",color:"#78350f",accent:"#fb923c"},
+  {id:"psychology",name:"Psychology & Mind",icon:"",img:"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=500&q=70",sub:"Behavioral · Cognitive · Neuroscience",color:"#3b0764",accent:"#c084fc"},
+  {id:"philosophy",name:"Philosophy",icon:"",img:"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=500&q=70",sub:"Stoicism · Existentialism · Ethics",color:"#422006",accent:"#fbbf24"},
+  {id:"science",name:"Science & Technology",icon:"",img:"https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=500&q=70",sub:"Physics · AI · Biology · Astronomy",color:"#0c4a6e",accent:"#22d3ee"},
+  {id:"history",name:"History & Society",icon:"",img:"https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=500&q=70",sub:"Military · Ancient · Geopolitics",color:"#451a03",accent:"#d97706"},
+  {id:"biography",name:"Biography & Memoir",icon:"",img:"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=500&q=70",sub:"Autobiography · Diaries · Letters",color:"#052e16",accent:"#86efac"},
+  {id:"african",name:"African Literature",icon:"",img:"https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=500&q=70",sub:"Afrofuturism · Diaspora · Feminist",color:"#431407",accent:"#fb923c"},
+  {id:"ya",name:"Young Adult",icon:"",img:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=70",sub:"YA · Middle Grade · Coming-of-Age",color:"#0f4c75",accent:"#60a5fa"},
+  {id:"religion",name:"Religion & Mythology",icon:"",img:"https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=500&q=70",sub:"Theology · Mythology · Comparative",color:"#3b1515",accent:"#fca5a5"},
+  {id:"health",name:"Health & Lifestyle",icon:"",img:"https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&q=70",sub:"Nutrition · Fitness · Longevity",color:"#052e16",accent:"#4ade80"},
+  {id:"politics",name:"Politics & Law",icon:"",img:"https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500&q=70",sub:"Political Science · International",color:"#0f172a",accent:"#818cf8"},
+  {id:"education",name:"Education & Skills",icon:"",img:"https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500&q=70",sub:"Writing · Languages · Communication",color:"#0c4a6e",accent:"#7dd3fc"},
+  {id:"art",name:"Art & Culture",icon:"",img:"https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&q=70",sub:"Music · Film · Architecture · Design",color:"#2e1065",accent:"#a78bfa"},
+  {id:"travel",name:"Travel & Exploration",icon:"",img:"https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500&q=70",sub:"Memoirs · Geography · Survival",color:"#0f2e1a",accent:"#6ee7b7"},
+  {id:"speculative",name:"Speculative Fiction",icon:"",img:"https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=500&q=70",sub:"Absurdist · Philosophical · Utopian",color:"#1e1b4b",accent:"#818cf8"},
+  {id:"hybrid",name:"Emerging Genres",icon:"",img:"https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=500&q=70",sub:"Dark Academia · LitRPG · Afrofantasy",color:"#2d1b69",accent:"#c084fc"},
+  {id:"reference",name:"Reference & Academic",icon:"",img:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=70",sub:"Encyclopedias · Textbooks · Guides",color:"#111827",accent:"#9ca3af"}
+];
+
+// ─── HELPERS ───
+function coverUrl(gid){return "https://books.google.com/books/content?id="+gid+"&printsec=frontcover&img=1&zoom=2&edge=curl";}
+function gutEpub(id){return "https://www.gutenberg.org/ebooks/"+id+".epub.noimages";}
+function gutRead(id){return "https://www.gutenberg.org/files/"+id+"/"+id+"-h/"+id+"-h.htm";}
+function genreColor(id){var g=GENRES.find(function(x){return x.id===id});return g?g.color:"#1e3a5c";}
+
+function makeCover(coverSrc,title,author,color,height){
+  var h=height||195;
+  var wrap=document.createElement("div");
+  wrap.className="book-cover-wrap";
+  if(coverSrc){
+    var img=document.createElement("img");
+    img.className="book-cover-img";
+    img.style.height=h+"px";
+    img.alt=title;
+    img.src=coverSrc;
+    img.onerror=function(){
+      wrap.removeChild(img);
+      var fb=document.createElement("div");
+      fb.className="book-cover-fallback";
+      fb.style.height=h+"px";
+      fb.style.background="linear-gradient(160deg,"+color+","+color+"88)";
+      fb.innerHTML='<div style="font-size:'+(h>150?34:22)+'px">📚</div><div style="font-family:\'Playfair Display\',serif;font-size:12px;font-weight:700;color:#fff;line-height:1.35;max-width:110px;text-align:center">'+title+'</div>';
+      wrap.appendChild(fb);
+    };
+    wrap.appendChild(img);
+  } else {
+    var fb=document.createElement("div");
+    fb.className="book-cover-fallback";
+    fb.style.height=h+"px";
+    fb.style.background="linear-gradient(160deg,"+color+","+color+"88)";
+    fb.innerHTML='<div style="font-size:'+(h>150?34:22)+'px">📚</div><div style="font-family:\'Playfair Display\',serif;font-size:12px;font-weight:700;color:#fff;line-height:1.35;max-width:110px;text-align:center">'+title+'</div>';
+    wrap.appendChild(fb);
+  }
+  return wrap;
+}
+
+function makeBookCard(book,isFree,onclick){
+  var card=document.createElement("div");
+  card.className="book-card "+(isFree?"green-border":"gold-hover");
+  card.onclick=onclick;
+  if(isFree){
+    var badge=document.createElement("div");
+    badge.className="book-badge badge-green";
+    badge.textContent="FREE";
+    card.appendChild(badge);
+  }
+  card.appendChild(makeCover(book.cover||null,book.title,book.author,book.color||genreColor(book.genre)||"#1e3a5c",195));
+  var info=document.createElement("div");
+  info.className="book-info";
+  info.innerHTML='<div class="book-title">'+book.title+'</div><div class="book-author">'+book.author+(book.year?" · "+book.year:"")+'</div><div class="'+(isFree?"book-action-green":"book-action-gold")+'">'+(isFree?"⬇ Download free →":"📲 Request on WhatsApp →")+'</div>';
+  card.appendChild(info);
+  return card;
+}
+
+// ─── RENDER FUNCTIONS ───
+function renderFeatured(){
+  var grid=document.getElementById("featured-grid");
+  if(!grid)return;
+  FEATURED.forEach(function(b){
+    var card=makeBookCard(b,false,function(){showPage("request");setReqTab("request");document.getElementById("req-book").value=b.title;checkReqForm();});
+    grid.appendChild(card);
+  });
+}
+
+function renderFreePreview(){
+  var grid=document.getElementById("free-preview-grid");
+  if(!grid)return;
+  FREE_BOOKS.slice(0,12).forEach(function(b){
+    var card=makeBookCard(b,true,function(){openBookModal(b);});
+    grid.appendChild(card);
+  });
+}
+
+function renderAllFree(){
+  var grid=document.getElementById("all-free-grid");
+  if(!grid||grid.children.length>0)return;
+  FREE_BOOKS.forEach(function(b){
+    var card=makeBookCard(b,true,function(){openBookModal(b);});
+    grid.appendChild(card);
+  });
+}
+
+function renderGenreGrid(){
+  var grid=document.getElementById("genre-grid");
+  if(!grid||grid.children.length>0)return;
+  GENRES.forEach(function(g){
+    var freeCount=FREE_BOOKS.filter(function(b){return b.genre===g.id;}).length;
+    var card=document.createElement("div");
+    card.className="genre-card";
+    var bg=document.createElement("img");
+    bg.className="genre-bg";bg.src=g.img;bg.alt=g.name;
+    var ov=document.createElement("div");
+    ov.className="genre-overlay";
+    ov.style.background="linear-gradient(155deg,"+g.color+"cc,rgba(0,0,0,.55))";
+    var content=document.createElement("div");
+    content.className="genre-content";
+    content.innerHTML='<div class="genre-icon">'+g.icon+'</div><div><div class="genre-name">'+g.name+'</div><div class="genre-sub">'+g.sub+'</div></div>';
+    var badge=document.createElement("div");
+    badge.className="genre-badge";
+    badge.style.color=g.accent;
+    badge.style.border="1px solid "+g.accent+"44";
+    badge.textContent=freeCount>0?freeCount+" FREE":"REQUEST";
+    card.appendChild(bg);card.appendChild(ov);card.appendChild(content);card.appendChild(badge);
+    card.onclick=function(){openGenreDetail(g);};
+    grid.appendChild(card);
+  });
+}
+
+function renderCommGrid(){
+  var grid=document.getElementById("comm-grid");
+  if(!grid||grid.children.length>0)return;
+  GENRES.forEach(function(g){
+    var card=document.createElement("div");
+    card.className="comm-card";
+    var bg=document.createElement("img");
+    bg.className="comm-card-bg";bg.src=g.img;bg.alt=g.name;
+    var content=document.createElement("div");
+    content.className="comm-card-content";
+    content.innerHTML='<div class="comm-card-left"><span style="font-size:20px">'+g.icon+'</span><span style="font-family:\'Playfair Display\',serif;font-size:13px;font-weight:700;color:#fff">'+g.name+'</span></div><a href="'+COMMUNITY+'" target="_blank" style="background:#25D366;color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap">Join</a>';
+    var overlay=document.createElement("div");
+    overlay.style.cssText="position:absolute;inset:0;background:"+g.color+"88";
+    card.appendChild(bg);card.appendChild(overlay);card.appendChild(content);
+    grid.appendChild(card);
+  });
+}
+
+function renderModalGenres(){
+  var sel=document.getElementById("m-genre");
+  if(!sel||sel.options.length>1)return;
+  GENRES.forEach(function(g){
+    var opt=document.createElement("option");
+    opt.value=g.name;opt.textContent=g.icon+" "+g.name;
+    sel.appendChild(opt);
+  });
+}
+
+// ─── GENRE DETAIL ───
+function openGenreDetail(g){
+  document.getElementById("genre-list-view").style.display="none";
+  var detail=document.getElementById("genre-detail");
+  detail.style.display="block";
+  document.getElementById("genre-hero-img").src=g.img;
+  document.getElementById("genre-hero-overlay").style.background="linear-gradient(135deg,"+g.color+"cc,rgba(0,0,0,.5))";
+  document.getElementById("genre-hero-icon").textContent=g.icon;
+  document.getElementById("genre-hero-title").textContent=g.name;
+  document.getElementById("genre-hero-sub").textContent=g.sub;
+  document.getElementById("genre-cta-label").textContent="More "+g.name+" Books";
+  var freeSection=document.getElementById("genre-free-books");
+  freeSection.innerHTML="";
+  var genreBooks=FREE_BOOKS.filter(function(b){return b.genre===g.id;});
+  if(genreBooks.length>0){
+    var label=document.createElement("div");
+    label.className="section-label label-green";
+    label.style.marginBottom="16px";
+    label.textContent="Free Downloads — "+g.name;
+    freeSection.appendChild(label);
+    var grid=document.createElement("div");
+    grid.className="book-grid";
+    grid.style.marginBottom="0";
+    genreBooks.forEach(function(b){
+      var card=makeBookCard(b,true,function(){openBookModal(b);});
+      grid.appendChild(card);
+    });
+    freeSection.appendChild(grid);
+    freeSection.style.marginBottom="40px";
+  }
+}
+
+function closeGenreDetail(){
+  document.getElementById("genre-list-view").style.display="block";
+  document.getElementById("genre-detail").style.display="none";
+}
+
+// ─── BOOK MODAL ───
+var currentReqBook="";
+function openBookModal(b){
+  currentReqBook=b.title;
+  var img=document.getElementById("book-modal-img");
+  img.src=b.cover||"";
+  img.onerror=function(){img.style.display="none";};
+  document.getElementById("book-avail").textContent=b.gut?"✓ Free Download Available":"Available on Request";
+  document.getElementById("book-avail").style.color=b.gut?"#4ade80":"#d97706";
+  document.getElementById("book-modal-title").textContent=b.title;
+  document.getElementById("book-modal-author").textContent=b.author+(b.year?" · "+b.year:"");
+  document.getElementById("book-modal-desc").textContent=b.desc||"A remarkable work available in our library.";
+  var dlLink=document.getElementById("book-dl-link");
+  var readLink=document.getElementById("book-read-link");
+  var reqBtn=document.getElementById("book-req-btn");
+  if(b.gut){
+    dlLink.href=gutEpub(b.gut);dlLink.style.display="block";
+    readLink.href=gutRead(b.gut);readLink.style.display="block";
+    reqBtn.style.display="none";
+  } else {
+    dlLink.style.display="none";readLink.style.display="none";
+    reqBtn.style.display="block";
+  }
+  document.getElementById("book-overlay").classList.add("open");
+}
+
+function closeBookModal(){document.getElementById("book-overlay").classList.remove("open");}
+function reqFromModal(){closeBookModal();showPage("request");setReqTab("request");document.getElementById("req-book").value=currentReqBook;checkReqForm();}
+
+// ─── LIBRARY SEARCH ───
+function libSearch(q){
+  var res=document.getElementById("lib-search-results");
+  res.innerHTML="";
+  if(!q||q.trim().length<2)return;
+  var matches=FREE_BOOKS.filter(function(b){return b.title.toLowerCase().includes(q.toLowerCase())||b.author.toLowerCase().includes(q.toLowerCase());});
+  if(matches.length===0)return;
+  var label=document.createElement("div");
+  label.className="section-label label-green";
+  label.style.marginBottom="16px";
+  label.textContent='Free Books matching "'+q+'"';
+  res.appendChild(label);
+  var grid=document.createElement("div");
+  grid.className="book-grid";
+  grid.style.marginBottom="48px";
+  matches.forEach(function(b){grid.appendChild(makeBookCard(b,true,function(){openBookModal(b);}));});
+  res.appendChild(grid);
+}
+
+// ─── NAV & PAGES ───
+function showPage(id){
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.getElementById("page-"+id).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active");if(b.dataset.page===id)b.classList.add("active");});
+  document.querySelectorAll(".mob-nav-btn").forEach(function(b){b.classList.remove("active");if(b.dataset.mobPage===id)b.classList.add("active");});
+  document.getElementById("mob-menu").style.display="none";
+  window.scrollTo(0,0);
+  if(id==="library"){renderGenreGrid();closeGenreDetail();}
+  if(id==="community")renderCommGrid();
+  if(id==="request")renderAllFree();
+}
+
+function toggleMobMenu(){
+  var m=document.getElementById("mob-menu");
+  m.style.display=m.style.display==="block"?"none":"block";
+}
+
+// ─── REQ FORM ───
+function setReqTab(tab){
+  document.querySelectorAll(".req-tab").forEach(function(t,i){t.classList.toggle("active",i===(tab==="free"?0:1));});
+  document.getElementById("free-tab-content").classList.toggle("active",tab==="free");
+  document.getElementById("request-tab-content").classList.toggle("active",tab==="request");
+  renderAllFree();
+}
+
+function checkReqForm(){
+  var b=document.getElementById("req-book").value.trim();
+  var p=document.getElementById("req-phone").value.trim();
+  document.getElementById("req-submit").disabled=!(b&&p);
+}
+
+function showSuccessState(book, phone, serverOk){
+  document.getElementById("req-success-book").textContent=book;
+  document.getElementById("req-success-phone").textContent=phone;
+  document.getElementById("req-form-fields").style.display="none";
+  document.getElementById("req-success").style.display="block";
+  document.getElementById("req-wa-fallback").style.display="none";
+
+  if(serverOk){
+    document.getElementById("req-success-heading").textContent="Request Received!";
+    document.getElementById("req-success-icon").style.background="#16a34a";
+    document.getElementById("req-success-msg").innerHTML='Searching for <strong style="color:#fff">'+book+'</strong>.<br>We\'ll deliver it to <strong style="color:#fff">'+phone+'</strong> shortly.';
+  } else {
+    document.getElementById("req-success-heading").textContent="Almost there!";
+    document.getElementById("req-success-icon").style.background="#d97706";
+    document.getElementById("req-success-icon").textContent="📲";
+    document.getElementById("req-success-msg").innerHTML='Server is searching for <strong style="color:#fff">'+book+'</strong>. Use the WhatsApp link below to confirm delivery to <strong style="color:#fff">'+phone+'</strong>.';
+    // Build WhatsApp direct message link to the bot number
+    var cleanPhone=phone.replace(/[^0-9]/g,"");
+    var waMsg=encodeURIComponent(book+" book");
+    document.getElementById("req-wa-link").href="https://wa.me/254735909656?text="+waMsg;
+    document.getElementById("req-wa-fallback").style.display="block";
+  }
+}
+
+function submitReq(){
+  var book=document.getElementById("req-book").value.trim();
+  var phone=document.getElementById("req-phone").value.trim();
+  var btn=document.getElementById("req-submit");
+  btn.disabled=true;
+  btn.textContent="Searching…";
+
+  // Format phone: strip non-digits, ensure starts with country code
+  var cleanPhone=phone.replace(/[^0-9]/g,"");
+  if(cleanPhone.startsWith("0"))cleanPhone="254"+cleanPhone.slice(1);
+  if(!cleanPhone.startsWith("254")&&!cleanPhone.startsWith("1")&&cleanPhone.length<11)cleanPhone="254"+cleanPhone;
+  var sender=cleanPhone+"@s.whatsapp.net";
+
+  // Try server first (5 second timeout)
+  var controller=new AbortController();
+  var timeout=setTimeout(function(){controller.abort();},5000);
+
+  fetch("http://198.52.245.220:5000/reply",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    signal:controller.signal,
+    body:JSON.stringify({query:{message:book+" book",sender:sender,isGroup:false}})
+  }).then(function(r){
+    clearTimeout(timeout);
+    if(r.ok){
+      showSuccessState(book,phone,true);
+    } else {
+      showSuccessState(book,phone,false);
+    }
+  }).catch(function(){
+    clearTimeout(timeout);
+    // Server unreachable — also try the Baileys send endpoint
+    fetch("http://198.52.245.220:3000/send-message",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({to:sender,message:"Hi! I'd like to request: "+book+"\nPlease send it to my WhatsApp. Thank you!"})
+    }).then(function(r2){
+      showSuccessState(book,phone,r2.ok);
+    }).catch(function(){
+      showSuccessState(book,phone,false);
+    });
+  });
+}
+
+function resetReqForm(){
+  document.getElementById("req-book").value="";
+  document.getElementById("req-phone").value="";
+  document.getElementById("req-form-fields").style.display="block";
+  document.getElementById("req-success").style.display="none";
+  document.getElementById("req-wa-fallback").style.display="none";
+  var btn=document.getElementById("req-submit");
+  btn.disabled=true;
+  btn.textContent="Request Book Free →";
+}
+
+// ─── JOIN MODAL ───
+function openJoinModal(){document.getElementById("modal-overlay").classList.add("open");renderModalGenres();}
+function closeJoinModal(){document.getElementById("modal-overlay").classList.remove("open");}
+function checkModalForm(){
+  var n=document.getElementById("m-name").value.trim();
+  var e=document.getElementById("m-email").value.trim();
+  document.getElementById("modal-submit").disabled=!(n&&e);
+}
+function submitJoin(){
+  var name=document.getElementById("m-name").value.trim();
+  var phone=document.getElementById("m-phone").value.trim();
+  document.getElementById("modal-welcome").textContent="Welcome, "+name.split(" ")[0]+"!";
+  document.getElementById("modal-success-msg").textContent="Account ready. Books delivered to "+phone+".";
+  document.getElementById("modal-form-view").style.display="none";
+  document.getElementById("modal-success").style.display="block";
+}
+
+// ─── AI CHAT ───
+var chatHistory=[{role:"assistant",content:"Welcome to Digital Library. I can find any book, recommend reads by genre, or guide you to a free download. What would you like to read today?"}];
+
+function appendMsg(role,text){
+  var msgs=document.getElementById("chat-msgs");
+  var row=document.createElement("div");
+  row.className="msg-row "+(role==="user"?"user":"");
+  if(role==="assistant"){var av=document.createElement("div");av.className="msg-avatar";av.textContent="📚";row.appendChild(av);}
+  var bubble=document.createElement("div");
+  bubble.className="msg-bubble "+(role==="user"?"user":"bot");
+  bubble.textContent=text;
+  row.appendChild(bubble);
+  msgs.appendChild(row);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function sendChat(){
+  var input=document.getElementById("chat-input");
+  var text=input.value.trim();
+  if(!text)return;
+  input.value="";
+  chatHistory.push({role:"user",content:text});
+  appendMsg("user",text);
+  document.getElementById("chat-typing").style.display="flex";
+  var messages=chatHistory.map(function(m){return {role:m.role,content:m.content};});
+  var systemPrompt="You are Digital Library's AI librarian. This library has 50 free public domain classics for instant download from Project Gutenberg. For modern books we search 34 Telegram channels and deliver to WhatsApp. WhatsApp community: "+COMMUNITY+". Donations M-Pesa 0748689103. Keep responses under 80 words. Natural tone. No markdown symbols.";
+  fetch("https://apartments-taken-respectively-suddenly.trycloudflare.com/ai",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:400,system:systemPrompt,messages:messages})
+  }).then(function(r){return r.json();}).then(function(d){
+    document.getElementById("chat-typing").style.display="none";
+    var reply=(d.content&&d.content[0]&&d.content[0].text)||"Let me find that for you.";
+    chatHistory.push({role:"assistant",content:reply});
+    appendMsg("assistant",reply);
+  }).catch(function(){
+    document.getElementById("chat-typing").style.display="none";
+    appendMsg("assistant","Having a moment — please try again.");
+  });
+}
+
+// ─── INIT ───
+renderFeatured();
+renderFreePreview();
+</script>
+</body>
+</html>
