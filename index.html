@@ -259,6 +259,14 @@ input::placeholder{color:rgba(245,240,232,.25)}
 #footer-bottom{max-width:1100px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(217,119,6,.06);text-align:center;font-size:9px;color:rgba(217,119,6,.14);letter-spacing:3px;text-transform:uppercase}
 
 /* ANIMATIONS */
+
+/* MANGA */
+#manga-hero{background:linear-gradient(135deg,#0d0018,#1a0030,#0d0018);padding:60px 20px 48px;border-bottom:1px solid rgba(139,92,246,.2)}
+.manga-card{background:#1a1612;border:1px solid rgba(139,92,246,.15);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .22s;position:relative}
+.manga-card:hover{transform:translateY(-5px);border-color:rgba(139,92,246,.5);box-shadow:0 16px 40px rgba(139,92,246,.2)}
+.manga-src{background:#1a1612;border:1px solid rgba(139,92,246,.15);border-radius:12px;padding:24px;display:block;color:inherit;transition:all .2s;text-decoration:none}
+.manga-src:hover{border-color:rgba(139,92,246,.45);transform:translateY(-3px);box-shadow:0 12px 32px rgba(139,92,246,.15)}
+
 @keyframes blink{0%,100%{opacity:.3;transform:scale(.75)}50%{opacity:1;transform:scale(1.1)}}
 .typing-dot{animation:blink 1s ease-in-out infinite}
 .typing-dot:nth-child(2){animation-delay:.15s}
@@ -294,6 +302,7 @@ input::placeholder{color:rgba(245,240,232,.25)}
       <button class="nav-btn" onclick="showPage('library')" data-page="library">Library</button>
       <button class="nav-btn" onclick="showPage('request')" data-page="request">Get a Book</button>
       <button class="nav-btn" onclick="showPage('sources')" data-page="sources">Free Sources</button>
+      <button class="nav-btn" onclick="showPage('manga')" data-page="manga">Manga &amp; Comics</button>
       <button class="nav-btn" onclick="showPage('community')" data-page="community">Community</button>
       <button id="join-nav-btn" onclick="openJoinModal()">Join Free</button>
     </div>
@@ -304,6 +313,7 @@ input::placeholder{color:rgba(245,240,232,.25)}
     <button class="mob-nav-btn" onclick="showPage('library')" data-mob-page="library">Library</button>
     <button class="mob-nav-btn" onclick="showPage('request')" data-mob-page="request">Get a Book</button>
     <button class="mob-nav-btn" onclick="showPage('sources')" data-mob-page="sources">Free Sources</button>
+    <button class="mob-nav-btn" onclick="showPage('manga')" data-mob-page="manga">Manga &amp; Comics</button>
     <button class="mob-nav-btn" onclick="showPage('community')" data-mob-page="community">Community</button>
     <button id="mob-join-btn" onclick="openJoinModal()">Join Free</button>
   </div>
@@ -616,6 +626,111 @@ input::placeholder{color:rgba(245,240,232,.25)}
 </div>
 
 <!-- FOOTER -->
+
+<!-- MANGA PAGE -->
+<div id="page-manga" class="page" style="background:#0a0803;min-height:100vh">
+  <div id="manga-hero">
+    <div style="max-width:1100px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;color:#8b5cf6;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Free Collection</div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;margin-bottom:12px">Manga &amp; Comics</h1>
+      <p style="color:rgba(255,255,255,.45);font-size:16px;max-width:500px;line-height:1.85">Thousands of free manga, comics and graphic novels. Read online or download — completely free, always.</p>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:48px 20px">
+
+    <div style="margin-bottom:52px">
+      <div style="font-size:11px;font-weight:700;color:#8b5cf6;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px">Free Reading Platforms</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+
+        <a class="manga-src" href="https://mangadex.org" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#ff6740;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:14px;flex-shrink:0">MD</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">MangaDex</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">The largest free manga library. 500,000+ chapters in 20+ languages. No account needed.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+        <a class="manga-src" href="https://www.webtoons.com/en/genre" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#00d564;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;flex-shrink:0">WT</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">Webtoon</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">Official free webtoons from professional creators. Thousands of series updated daily.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+        <a class="manga-src" href="https://digitalcomicmuseum.com" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#1a3a6c;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;flex-shrink:0">DCM</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">Digital Comic Museum</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">15,000+ classic public domain comics from the Golden Age. Free to download forever.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+        <a class="manga-src" href="https://readcomiconline.li" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#c0392b;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;flex-shrink:0">RC</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">Read Comic Online</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">Marvel, DC, and indie comics free online. Huge catalogue updated regularly.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+        <a class="manga-src" href="https://archive.org/details/comics" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#428bca;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;flex-shrink:0">IA</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">Internet Archive</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">Millions of scanned comics and manga free to borrow or download permanently.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+        <a class="manga-src" href="https://www.mangahere.cc" target="_blank">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div style="width:36px;height:36px;background:#8b5cf6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;flex-shrink:0">MH</div>
+            <div style="font-size:17px;font-weight:700;color:#f5f0e8">Manga Here</div>
+          </div>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:12px">Large manga collection with fast updates. Read latest chapters free without signup.</p>
+          <div style="font-size:13px;color:#8b5cf6;font-weight:600">Read free &#8594;</div>
+        </a>
+
+      </div>
+    </div>
+
+    <div style="margin-bottom:52px">
+      <div style="font-size:11px;font-weight:700;color:#8b5cf6;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px">Popular Titles</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px" id="manga-titles-grid"></div>
+    </div>
+
+    <div style="margin-bottom:52px">
+      <div style="font-size:11px;font-weight:700;color:#8b5cf6;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px">Browse by Genre</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a href="https://mangadex.org/titles?tags=391b0423-d847-456f-aff0-8f0cdd6c2d39" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Action</a>
+        <a href="https://mangadex.org/titles?tags=423e2eae-a7a2-4a8b-ac03-a8351462d71d" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Romance</a>
+        <a href="https://mangadex.org/titles?tags=cdc58593-87dd-415e-bbc0-2ec27bf404cc" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Fantasy</a>
+        <a href="https://mangadex.org/titles?tags=cdad7e68-1419-41d4-b42b-c35dc4b4d9ef" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Horror</a>
+        <a href="https://mangadex.org/titles?tags=4d32cc48-9f00-4cca-9b5a-a839f0764984" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Comedy</a>
+        <a href="https://mangadex.org/titles?tags=87cc87cd-a395-47af-b27a-93258283bbc6" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Adventure</a>
+        <a href="https://mangadex.org/titles?tags=256c8bd9-4904-4360-bf4f-508a76d67183" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Sci-Fi</a>
+        <a href="https://mangadex.org/titles?tags=b9af3a63-f058-46de-a9a0-e0c13906197a" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Drama</a>
+        <a href="https://mangadex.org/titles?tags=e5301a23-ebd9-49dd-a0cb-2add944c7fe9" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Slice of Life</a>
+        <a href="https://mangadex.org/titles?tags=eabc5b4c-d38e-4e6b-96c7-8e2b3e657ba4" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Supernatural</a>
+        <a href="https://mangadex.org/titles?tags=ee968100-4191-4968-93d3-f68d863f7cba" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Mystery</a>
+        <a href="https://mangadex.org/titles?tags=69964a64-2f90-4d33-beeb-107d3b516fa6" target="_blank" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none">Sports</a>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#1a0030,#2d0050);border:1px solid rgba(139,92,246,.25);border-radius:14px;padding:38px;text-align:center">
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:#c4b5fd;margin-bottom:10px">Can't find what you're looking for?</h2>
+      <p style="color:rgba(255,255,255,.4);font-size:15px;margin-bottom:24px">Request any manga or comic via WhatsApp — we'll search and deliver it to your inbox.</p>
+      <button onclick="showPage('request');setReqTab('request')" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);color:#fff;border:none;padding:13px 32px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">Request via WhatsApp</button>
+    </div>
+
+  </div>
+</div>
+
 <footer id="footer">
   <div id="footer-inner">
     <div>
@@ -973,6 +1088,45 @@ function libSearch(q){
   res.appendChild(grid);
 }
 
+
+var MANGA_TITLES = [
+  {title:"Naruto",img:"/manga/naruto.jpg",author:"Masashi Kishimoto",color:"#1a0a2e",url:"https://mangadex.org/search?q=naruto"},
+  {title:"One Piece",img:"/manga/onepiece.jpg",author:"Eiichiro Oda",color:"#001a3a",url:"https://mangadex.org/search?q=one+piece"},
+  {title:"Attack on Titan",img:"/manga/aot.jpg",author:"Hajime Isayama",color:"#1a0a0a",url:"https://mangadex.org/search?q=attack+on+titan"},
+  {title:"Death Note",img:"/manga/deathnote.jpg",author:"Tsugumi Ohba",color:"#0a0a1a",url:"https://mangadex.org/search?q=death+note"},
+  {title:"Dragon Ball",img:"/manga/dragonball.jpg",author:"Akira Toriyama",color:"#1a0a00",url:"https://mangadex.org/search?q=dragon+ball"},
+  {title:"Fullmetal Alchemist",img:"/manga/fma.jpg",author:"Hiromu Arakawa",color:"#1a1000",url:"https://mangadex.org/search?q=fullmetal+alchemist"},
+  {title:"Demon Slayer",img:"/manga/demonslayer.jpg",author:"Koyoharu Gotouge",color:"#0a001a",url:"https://mangadex.org/search?q=demon+slayer"},
+  {title:"My Hero Academia",img:"/manga/mha.jpg",author:"Kohei Horikoshi",color:"#001a10",url:"https://mangadex.org/search?q=my+hero+academia"},
+  {title:"Bleach",img:"/manga/bleach.jpg",author:"Tite Kubo",color:"#0a1a1a",url:"https://mangadex.org/search?q=bleach"},
+  {title:"Hunter x Hunter",img:"/manga/hxh.jpg",author:"Yoshihiro Togashi",color:"#1a1a00",url:"https://mangadex.org/search?q=hunter+x+hunter"},
+  {title:"Vinland Saga",img:"/manga/vinland.jpg",author:"Makoto Yukimura",color:"#001000",url:"https://mangadex.org/search?q=vinland+saga"},
+  {title:"Solo Leveling",img:"/manga/solo.jpg",author:"Chugong",color:"#00001a",url:"https://mangadex.org/search?q=solo+leveling"},
+];
+
+function renderMangaTitles(){
+  var grid=document.getElementById("manga-titles-grid");
+  if(!grid||grid.children.length>0)return;
+  MANGA_TITLES.forEach(function(m){
+    var card=document.createElement("div");
+    card.className="manga-card";
+    card.onclick=function(){window.open(m.url,"_blank");};
+    var coverDiv=document.createElement("div");
+    coverDiv.style.cssText="height:200px;background:"+m.color+";position:relative;overflow:hidden";
+    var badge=document.createElement("div");
+    badge.style.cssText="position:absolute;top:8px;left:8px;background:#7c3aed;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:1px";
+    badge.textContent="FREE";
+    if(m.img){var im=document.createElement("img");im.src=m.img;im.alt=m.title;im.style.cssText="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;top:0;left:0";coverDiv.appendChild(im);}else{coverDiv.innerHTML="<div style='position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;text-align:center'><div style='font-size:36px'>&#128214;</div><div style='font-family:Georgia,serif;font-size:13px;font-weight:700;color:#fff;line-height:1.35'>"+m.title+"</div></div>";}
+    coverDiv.appendChild(badge);
+    var info=document.createElement("div");
+    info.style.cssText="padding:11px 12px 14px";
+    info.innerHTML="<div style='font-family:Georgia,serif;font-size:13px;font-weight:700;color:#f5f0e8;margin-bottom:2px'>"+m.title+"</div><div style='font-size:11px;color:rgba(255,255,255,.38);margin-bottom:6px'>"+m.author+"</div><div style='font-size:11px;color:#8b5cf6;font-weight:600'>Read on MangaDex &#8594;</div>";
+    card.appendChild(coverDiv);
+    card.appendChild(info);
+    grid.appendChild(card);
+  });
+}
+
 // ─── NAV & PAGES ───
 function showPage(id){
   document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
@@ -984,6 +1138,7 @@ function showPage(id){
   if(id==="library"){renderGenreGrid();closeGenreDetail();}
   if(id==="community")renderCommGrid();
   if(id==="request")renderAllFree();
+  if(id==="manga")renderMangaTitles();
 }
 
 function toggleMobMenu(){
